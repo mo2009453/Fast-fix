@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LogIn, UserPlus, ShieldCheck } from 'lucide-react';
+import { useTranslation } from 'react-i18next';  // خاصية الترجمة
 
 const phrases = [
   "الثقة أساس كل تعامل.",
@@ -16,6 +17,7 @@ const phrases = [
 ];
 
 const UserLoginPage = () => {
+  const { t, i18n } = useTranslation();  // إضافة الترجمة
   const navigate = useNavigate();
   const { loginUser, registerUser } = useAuth();
   const [loginEmail, setLoginEmail] = useState('');
@@ -52,6 +54,11 @@ const UserLoginPage = () => {
     }
   };
 
+  // تغيير اللغة
+  const handleChangeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   return (
     <motion.div
       className="flex justify-center items-center min-h-screen py-12 px-4 bg-gradient-to-tr from-[#0d1f2d] to-[#1f2937]"
@@ -60,7 +67,8 @@ const UserLoginPage = () => {
       transition={{ duration: 0.5 }}
     >
       <Card className="w-full max-w-md shadow-2xl backdrop-blur-lg bg-white/10 border border-white/10 relative">
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 text-center px-4">
+        {/* رفع الجملة فوق البوكس */}
+        <div className="absolute top-6 left-1/2 transform -translate-x-1/2 text-center px-4">
           <AnimatePresence mode="wait">
             <motion.div
               key={phrases[currentPhraseIndex]}
@@ -75,52 +83,61 @@ const UserLoginPage = () => {
             </motion.div>
           </AnimatePresence>
         </div>
+        
         <CardHeader className="text-center mt-16">
-          <CardTitle className="text-3xl text-white">User Portal</CardTitle>
-          <CardDescription className="text-gray-300">Access your account or create a new one.</CardDescription>
+          <CardTitle className="text-3xl text-white">{t("user_portal")}</CardTitle>  {/* ترجمات */}
+          <CardDescription className="text-gray-300">{t("access_account")}</CardDescription>  {/* ترجمات */}
         </CardHeader>
+        
         <CardContent>
           <Tabs defaultValue="login" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="login"><LogIn className="mr-2 h-4 w-4" />Login</TabsTrigger>
-              <TabsTrigger value="register"><UserPlus className="mr-2 h-4 w-4" />Register</TabsTrigger>
+              <TabsTrigger value="login">{t("login")}</TabsTrigger>  {/* ترجمات */}
+              <TabsTrigger value="register">{t("register")}</TabsTrigger>  {/* ترجمات */}
             </TabsList>
             <TabsContent value="login" className="mt-6">
               <form onSubmit={handleLogin} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="login-email" className="text-white">Email</Label>
-                  <Input id="login-email" type="email" placeholder="you@example.com" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required />
+                  <Label htmlFor="login-email" className="text-white">{t("email")}</Label>  {/* ترجمات */}
+                  <Input id="login-email" type="email" placeholder={t("email_placeholder")} value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="login-password" className="text-white">Password</Label>
+                  <Label htmlFor="login-password" className="text-white">{t("password")}</Label>  {/* ترجمات */}
                   <Input id="login-password" type="password" placeholder="••••••••" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required />
                 </div>
                 <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white text-lg py-3">
-                  <LogIn className="mr-2 h-5 w-5" /> Sign In
+                  <LogIn className="mr-2 h-5 w-5" /> {t("sign_in")}
                 </Button>
               </form>
             </TabsContent>
             <TabsContent value="register" className="mt-6">
               <form onSubmit={handleRegister} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="register-name" className="text-white">Full Name</Label>
+                  <Label htmlFor="register-name" className="text-white">{t("full_name")}</Label>  {/* ترجمات */}
                   <Input id="register-name" placeholder="John Doe" value={registerName} onChange={(e) => setRegisterName(e.target.value)} required />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="register-email" className="text-white">Email</Label>
-                  <Input id="register-email" type="email" placeholder="you@example.com" value={registerEmail} onChange={(e) => setRegisterEmail(e.target.value)} required />
+                  <Label htmlFor="register-email" className="text-white">{t("email")}</Label>  {/* ترجمات */}
+                  <Input id="register-email" type="email" placeholder={t("email_placeholder")} value={registerEmail} onChange={(e) => setRegisterEmail(e.target.value)} required />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="register-password" className="text-white">Password</Label>
+                  <Label htmlFor="register-password" className="text-white">{t("password")}</Label>  {/* ترجمات */}
                   <Input id="register-password" type="password" placeholder="••••••••" value={registerPassword} onChange={(e) => setRegisterPassword(e.target.value)} required />
                 </div>
                 <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-3">
-                  <UserPlus className="mr-2 h-5 w-5" /> Create Account
+                  <UserPlus className="mr-2 h-5 w-5" /> {t("create_account")}
                 </Button>
               </form>
             </TabsContent>
           </Tabs>
         </CardContent>
+        
+        {/* إضافة زر تغيير اللغة */}
+        <div className="absolute bottom-4 right-4">
+          <Button onClick={() => handleChangeLanguage('en')} className="mr-2 bg-blue-500 text-white">{t("english")}</Button>
+          <Button onClick={() => handleChangeLanguage('ar')} className="bg-green-500 text-white">{t("arabic")}</Button>
+        </div>
+        
       </Card>
     </motion.div>
   );
