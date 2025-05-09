@@ -40,7 +40,7 @@ const UserLoginPage = () => {
 
   return (
     <motion.div 
-      className="flex justify-center items-center min-h-[calc(100vh-10rem)] py-12 bg-gradient-to-br from-blue-200 via-blue-300 to-white"
+      className="flex justify-center items-center min-h-[calc(100vh-10rem)] py-12 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
