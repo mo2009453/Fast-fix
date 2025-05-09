@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import WelcomeScreen from '@/pages/WelcomeScreen'; // استيراد شاشة الترحيب
 import HomePage from '@/pages/HomePage';
 import UserLoginPage from '@/pages/UserLoginPage';
 import TechnicianLoginPage from '@/pages/TechnicianLoginPage';
@@ -18,7 +18,6 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
 
 const PageLayout = ({ children }) => {
   const location = useLocation(); 
@@ -54,14 +53,13 @@ const ProtectedRoute = ({ children, role }) => {
   if (role === 'admin' && !admin) {
     return <Navigate to="/login/admin" replace />;
   }
-  
+
   if (role === 'technician' && technician && technician.approved === false) { 
      return <Navigate to="/technician/pending-approval" replace />;
   }
    if (role === 'technician' && technician && technician.approved === 'rejected') {
      return <Navigate to="/technician/application-rejected" replace />;
   }
-
 
   return children;
 };
@@ -71,11 +69,15 @@ const AppContent = () => {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageLayout><HomePage /></PageLayout>} />
+        {/* صفحة الترحيب */}
+        <Route path="/" element={<PageLayout><WelcomeScreen /></PageLayout>} />
+
+        {/* المسارات الأخرى */}
+        <Route path="/home" element={<PageLayout><HomePage /></PageLayout>} />
         <Route path="/login/user" element={<PageLayout><UserLoginPage /></PageLayout>} />
         <Route path="/login/technician" element={<PageLayout><TechnicianLoginPage /></PageLayout>} />
         <Route path="/login/admin" element={<PageLayout><AdminLoginPage /></PageLayout>} />
-        
+
         <Route 
           path="/book-service" 
           element={
@@ -116,8 +118,6 @@ const AppContent = () => {
           path="/technician/application-rejected" 
           element={<PageLayout><TechnicianApplicationRejectedPage /></PageLayout>} 
         />
-
-
       </Routes>
     </AnimatePresence>
   );
@@ -160,7 +160,6 @@ const TechnicianApplicationRejectedPage = () => (
   </div>
 );
 
-
 function App() {
   return (
     <Router>
@@ -183,4 +182,3 @@ function App() {
 }
 
 export default App;
-  
