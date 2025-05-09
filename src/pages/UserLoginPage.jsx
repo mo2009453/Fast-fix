@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -23,7 +22,7 @@ const UserLoginPage = () => {
     e.preventDefault();
     try {
       loginUser({ email: loginEmail, password: loginPassword });
-      navigate('/'); 
+      navigate('/');
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -41,12 +40,12 @@ const UserLoginPage = () => {
 
   return (
     <motion.div 
-      className="flex justify-center items-center min-h-[calc(100vh-10rem)] py-12"
+      className="flex justify-center items-center min-h-[calc(100vh-10rem)] py-12 bg-gradient-to-br from-blue-500 to-indigo-700"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="w-full max-w-md shadow-2xl glass-effect">
+      <Card className="w-full max-w-md shadow-xl rounded-xl bg-white/80 backdrop-blur-lg">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl text-gradient-primary">User Portal</CardTitle>
           <CardDescription>Access your account or create a new one.</CardDescription>
@@ -99,4 +98,3 @@ const UserLoginPage = () => {
 };
 
 export default UserLoginPage;
-  
