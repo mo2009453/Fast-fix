@@ -7,12 +7,21 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import { motion } from 'framer-motion';
-import { LogIn, UserPlus } from 'lucide-react';
+import { LogIn, UserPlus, ShieldCheck, BadgeCheck, ThumbsUp } from 'lucide-react';
 
 const motivationalQuotes = [
-  "نحن نؤمن أن الثقة أساس كل عمل ناجح.",
-  "الاحتراف هو وعدنا، والجودة هي التزامنا.",
-  "الأمانة ليست خيارًا، بل أسلوب حياة."
+  {
+    text: "نحن نؤمن أن الثقة أساس كل علاقة ناجحة.",
+    icon: ShieldCheck
+  },
+  {
+    text: "الاحتراف هو وعدنا، والجودة هي التزامنا.",
+    icon: BadgeCheck
+  },
+  {
+    text: "الأمانة ليست خيارًا، بل أسلوب حياة.",
+    icon: ThumbsUp
+  }
 ];
 
 const UserLoginPage = () => {
@@ -28,7 +37,7 @@ const UserLoginPage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setQuoteIndex((prevIndex) => (prevIndex + 1) % motivationalQuotes.length);
-    }, 5000);
+    }, 7000); // 7 ثواني
     return () => clearInterval(interval);
   }, []);
 
@@ -52,20 +61,23 @@ const UserLoginPage = () => {
     }
   };
 
+  const CurrentIcon = motivationalQuotes[quoteIndex].icon;
+
   return (
-    <div
-      className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-white transition-all duration-500"
-    >
+    <div className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-white">
       <div className="absolute top-20 text-center px-4">
-        <motion.h2
+        <motion.div
           key={quoteIndex}
-          className="text-xl sm:text-2xl md:text-3xl font-semibold text-white drop-shadow-md"
+          className="flex items-center justify-center space-x-3"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1 }}
         >
-          {motivationalQuotes[quoteIndex]}
-        </motion.h2>
+          <CurrentIcon className="w-8 h-8 text-emerald-400 drop-shadow" />
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg">
+            {motivationalQuotes[quoteIndex].text}
+          </h2>
+        </motion.div>
       </div>
 
       <motion.div
