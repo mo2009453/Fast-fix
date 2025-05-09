@@ -40,19 +40,19 @@ const UserLoginPage = () => {
 
   return (
     <motion.div 
-      className="flex justify-center items-center min-h-[calc(100vh-10rem)] py-12 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      className="h-screen w-full bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
     >
-      <Card className="w-full max-w-md shadow-xl rounded-xl bg-white/80 backdrop-blur-lg">
+      <Card className="w-full max-w-md shadow-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl text-gradient-primary">User Portal</CardTitle>
-          <CardDescription>Access your account or create a new one.</CardDescription>
+          <CardTitle className="text-3xl font-bold">User Portal</CardTitle>
+          <CardDescription className="text-white/70">Access your account or create a new one.</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-2 bg-white/10 backdrop-blur-md text-white">
               <TabsTrigger value="login"><LogIn className="mr-2 h-4 w-4" />Login</TabsTrigger>
               <TabsTrigger value="register"><UserPlus className="mr-2 h-4 w-4" />Register</TabsTrigger>
             </TabsList>
@@ -66,7 +66,7 @@ const UserLoginPage = () => {
                   <Label htmlFor="login-password">Password</Label>
                   <Input id="login-password" type="password" placeholder="••••••••" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required />
                 </div>
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-3">
+                <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white text-lg py-3">
                   <LogIn className="mr-2 h-5 w-5" /> Sign In
                 </Button>
               </form>
@@ -85,7 +85,7 @@ const UserLoginPage = () => {
                   <Label htmlFor="register-password">Password</Label>
                   <Input id="register-password" type="password" placeholder="••••••••" value={registerPassword} onChange={(e) => setRegisterPassword(e.target.value)} required />
                 </div>
-                <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-lg py-3">
+                <Button type="submit" className="w-full bg-pink-600 hover:bg-pink-700 text-white text-lg py-3">
                   <UserPlus className="mr-2 h-5 w-5" /> Create Account
                 </Button>
               </form>
